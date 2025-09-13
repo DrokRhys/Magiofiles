@@ -1,9 +1,35 @@
 /* Magiofiles basic styles */
 .magiofiles-view { display: flex; flex-direction: column; height: 100%; }
-.magiofiles-controls { padding: 8px; border-bottom: none; gap: 8px; display: flex; flex-wrap: wrap; align-items: center; }
+.magiofiles-controls { 
+  padding: var(--nav-item-padding, 8px); 
+  border-bottom: none; 
+  gap: var(--nav-item-padding, 8px); 
+  display: flex; 
+  flex-wrap: wrap; 
+  align-items: center; 
+  /* Force stable toolbar height regardless of theme quirks */
+  min-height: calc(var(--mgf-fixed-toolbar-icon-size, 28px) + 2 * var(--nav-item-padding, 8px));
+}
 .magiofiles-controls.has-levels-open { border-bottom: 1px solid var(--background-modifier-border); }
 .magiofiles-controls .view-actions { width: 100%; display: flex; gap: 6px; align-items: center; justify-content: center; }
-.magiofiles-controls .view-actions .clickable-icon { color: var(--text-muted); }
+.magiofiles-controls .view-actions { transform: none !important; }
+.magiofiles-controls .view-actions .clickable-icon { 
+  color: var(--text-muted); 
+  width: var(--mgf-fixed-toolbar-icon-size, 28px) !important; 
+  height: var(--mgf-fixed-toolbar-icon-size, 28px) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1 !important;
+  transform: none !important;
+  zoom: 1 !important;
+  flex: 0 0 auto;
+}
+.magiofiles-controls .view-actions .clickable-icon svg {
+  width: var(--mgf-fixed-toolbar-icon-size, 28px) !important;
+  height: var(--mgf-fixed-toolbar-icon-size, 28px) !important;
+  transform: none !important;
+}
 .magiofiles-controls .view-actions .clickable-icon:hover { color: var(--text-normal); }
 .magiofiles-levels { width: 100%; margin-top: 6px; }
 .magiofiles-level { display: grid; grid-template-columns: 140px 1fr auto; gap: 8px; align-items: center; padding: 4px 0; }
@@ -24,8 +50,17 @@
 /* Rely on Obsidian native tree-item styles for spacing/indent/icons */
 .mgf-muted { color: var(--text-muted); font-style: italic; }
 
-/* When file icons are enabled, ensure enough room so guide lines don't overlap icons */
-/* No custom padding tweaks; rely on native nav layout to avoid line overlap */
+/* When file icons are enabled, shift entire file row right to avoid guide lines */
+.mgf-icons-on .nav-file .tree-item-self {
+  margin-left: var(--icon-size, 18px);
+}
+
+/* Extend selection bar to cover icon area when icons are enabled */
+.mgf-icons-on .nav-file .tree-item-self.is-active,
+.mgf-icons-on .nav-file .tree-item-self.is-selected {
+  margin-left: 0;
+  padding-left: var(--icon-size, 18px);
+}
 
 /* Tag picker */
 .mgf-tagpicker { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 6px; border: none; border-radius: 6px; background: var(--background-primary); position: relative; }
@@ -37,5 +72,61 @@
   max-height: 60vh; overflow: auto; margin-top: 4px; }
 .mgf-suggest-item { padding: 6px 8px; cursor: pointer; }
 .mgf-suggest-item:hover { background: var(--background-modifier-hover); }
+
+/* Views management styles */
+.magiofiles-views-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.magiofiles-view-item { display: flex; align-items: center; justify-content: space-between; padding: 4px 8px; border-radius: 4px; background: var(--background-modifier-form-field); }
+.mgf-view-name { flex: 1; }
+.mgf-view-name.mgf-active-view { font-weight: bold; color: var(--text-accent); }
+.mgf-view-actions { display: flex; gap: 6px; }
+.mgf-view-actions button { font-size: 12px; padding: 2px 6px; }
+
+/* Section headers: match native folder styling exactly */
+.magiofiles-tree .tree-item.nav-folder .tree-item-self.nav-folder-title {
+  /* Ensure section headers get native folder styling */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: var(--nav-item-padding, 2px 8px);
+  border-radius: var(--nav-item-border-radius, 4px);
+}
+
+.magiofiles-tree .tree-item.nav-folder .tree-item-self.nav-folder-title:hover {
+  background-color: var(--nav-item-background-hover);
+}
+
+.magiofiles-tree .tree-item.nav-folder .tree-item-self.nav-folder-title.is-active,
+.magiofiles-tree .tree-item.nav-folder .tree-item-self.nav-folder-title:active {
+  background-color: var(--nav-item-background-active);
+}
+
+/* Chevron positioning and animations */
+.magiofiles-tree .collapse-icon {
+  position: relative;
+  z-index: 10; /* Above guide lines */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  margin-right: var(--nav-item-icon-margin, 4px);
+}
+
+.magiofiles-tree .collapse-icon svg {
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  transition: transform 150ms ease;
+}
+
+.magiofiles-tree .tree-item.is-collapsed > .tree-item-self .collapse-icon svg,
+.magiofiles-tree .tree-item .tree-item-self.is-collapsed .collapse-icon svg {
+  transform: rotate(-90deg);
+}
+
+/* Ensure guide lines don't interfere with chevrons */
+.magiofiles-tree .tree-item-children {
+  position: relative;
+}
 
 /* Hover/chevrons: rely fully on native explorer styles */
