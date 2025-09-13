@@ -1,0 +1,11 @@
+{
+  "id": "magiofiles",
+  "name": "Magiofiles",
+  "version": "0.1.0",
+  "minAppVersion": "1.4.16",
+  "description": "Dynamické zobrazení poznámek jako adresáře podle tagů s uloženými pohledy.",
+  "author": "DrokRhys + Assistant",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}
+

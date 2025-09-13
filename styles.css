@@ -1,0 +1,41 @@
+/* Magiofiles basic styles */
+.magiofiles-view { display: flex; flex-direction: column; height: 100%; }
+.magiofiles-controls { padding: 8px; border-bottom: none; gap: 8px; display: flex; flex-wrap: wrap; align-items: center; }
+.magiofiles-controls.has-levels-open { border-bottom: 1px solid var(--background-modifier-border); }
+.magiofiles-controls .view-actions { width: 100%; display: flex; gap: 6px; align-items: center; justify-content: center; }
+.magiofiles-controls .view-actions .clickable-icon { color: var(--text-muted); }
+.magiofiles-controls .view-actions .clickable-icon:hover { color: var(--text-normal); }
+.magiofiles-levels { width: 100%; margin-top: 6px; }
+.magiofiles-level { display: grid; grid-template-columns: 140px 1fr auto; gap: 8px; align-items: center; padding: 4px 0; }
+.magiofiles-level input { width: 100%; }
+.magiofiles-tree { flex: 1; overflow: auto; padding: 0; }
+/* Align fully to native; no custom margins or chevron sizing override */
+/* Let native theme handle indentation of children */
+
+/* Ensure collapse chevrons match icon-size in our pane (fallback if theme doesn't apply) */
+.magiofiles-tree.nav-files-container .collapse-icon svg { width: var(--icon-size, 18px); height: var(--icon-size, 18px); transition: transform 150ms ease; }
+/* Ensure collapse uses our fallback rotation if theme doesn't provide it */
+.magiofiles-tree.nav-files-container .tree-item.is-collapsed > .tree-item-self .collapse-icon svg,
+.magiofiles-tree.nav-files-container .tree-item .tree-item-self.is-collapsed .collapse-icon svg { transform: rotate(-90deg); }
+/* Prevent wrapping; mimic native explorer truncation */
+.magiofiles-tree.nav-files-container .tree-item-self { display: flex; align-items: center; min-width: 0; }
+.magiofiles-tree.nav-files-container .tree-item-inner { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Rely on Obsidian native tree-item styles for spacing/indent/icons */
+.mgf-muted { color: var(--text-muted); font-style: italic; }
+
+/* When file icons are enabled, ensure enough room so guide lines don't overlap icons */
+/* No custom padding tweaks; rely on native nav layout to avoid line overlap */
+
+/* Tag picker */
+.mgf-tagpicker { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 6px; border: none; border-radius: 6px; background: var(--background-primary); position: relative; }
+.mgf-chip-list { display: flex; gap: 6px; flex-wrap: wrap; }
+.mgf-chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 6px; border-radius: 999px; background: var(--background-modifier-form-field); color: var(--text-normal); }
+.mgf-chip-x { cursor: pointer; color: var(--text-muted); }
+.mgf-taginput { flex: 1; min-width: 140px; border: none; outline: none; background: transparent; }
+.mgf-suggest { position: absolute; top: 100%; left: 0; right: 0; z-index: 10; background: var(--background-primary); border: 1px solid var(--background-modifier-border); border-radius: 6px; box-shadow: var(--shadow-s);
+  max-height: 60vh; overflow: auto; margin-top: 4px; }
+.mgf-suggest-item { padding: 6px 8px; cursor: pointer; }
+.mgf-suggest-item:hover { background: var(--background-modifier-hover); }
+
+/* Hover/chevrons: rely fully on native explorer styles */
